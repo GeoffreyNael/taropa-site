@@ -17,10 +17,10 @@ export function CollectionHeader({
       <div className="collection-header__top">
         <h1 className="collection-header__title">Collection : {title}</h1>
         <button type="button" className="collection-header__filters" disabled>
-          Filtres
+          Filters
         </button>
       </div>
-      <nav className="collection-header__nav" aria-label="Catégories">
+      <nav className="collection-header__nav" aria-label="Categories">
         <ul className="collection-header__nav-list">
           {categories.map((category) => (
             <li key={category.slug}>

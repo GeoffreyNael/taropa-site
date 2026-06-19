@@ -1,3 +1,17 @@
+export type AboutSection = {
+  id: string;
+  heading: string;
+  body: string;
+};
+
+export type AboutContent = {
+  title: string;
+  intro: string;
+  image: string;
+  imageAlt: string;
+  sections: AboutSection[];
+};
+
 export type NavItem = {
   href: string;
   label: string;
@@ -9,17 +23,11 @@ export type CollectionCategory = {
   href: string;
 };
 
-export type Product = {
-  id: string;
-  ref: string;
-  name: string;
-  description: string;
-  image: string;
-  category: "women" | "men";
-  price?: string;
-  colorCount?: number;
-  href?: string;
-};
+export type { Product } from "./products";
+export { womenProducts } from "./products";
+import { womenProducts as womenCollection } from "./products";
+
+export type GalleryTile = "hero" | "standard" | "wide";
 
 export type GalleryItem = {
   id: string;
@@ -28,84 +36,65 @@ export type GalleryItem = {
   alt: string;
   width: number;
   height: number;
-  fullWidth?: boolean;
+  tile: GalleryTile;
   poster?: string;
 };
 
 export const nav: NavItem[] = [
-  { href: "/women", label: "Femmes" },
-  { href: "/men", label: "Hommes" },
+  { href: "/women", label: "Women" },
+  { href: "/men", label: "Men" },
+  { href: "/about", label: "About us" },
+  { href: "/contact", label: "Contact us" },
 ];
-
-const placeholderImages = [
-  "/media/images/embroidery-hands.jpg",
-  "/media/images/chikankari-book.jpg",
-  "/media/images/block-print.jpg",
-  "/media/images/blue-blocks.jpg",
-  "/media/images/atelier-group.jpg",
-];
-
-function createPlaceholderProducts(
-  category: "women" | "men",
-  prefix: string,
-): Product[] {
-  return Array.from({ length: 10 }, (_, index) => {
-    const number = String(index + 1).padStart(2, "0");
-    return {
-      id: `${category}-${number}`,
-      ref: String(index + 1).padStart(4, "0"),
-      name: "À compléter",
-      description: "",
-      image: placeholderImages[index % placeholderImages.length],
-      category,
-      href: `#${prefix}-${number}`,
-    };
-  });
-}
 
 export const womenCategories: CollectionCategory[] = [
-  { slug: "all", label: "Tout", href: "/women" },
+  { slug: "all", label: "All", href: "/women" },
 ];
 
 export const menCategories: CollectionCategory[] = [
-  { slug: "all", label: "Tout", href: "/men" },
+  { slug: "all", label: "All", href: "/men" },
 ];
 
-export const womenProducts: Product[] = createPlaceholderProducts("women", "femme");
-
-/** Pièces hommes — ajouter les produits ici */
-export const menProducts: Product[] = [
+/** Men's pieces — add products here */
+export const menProducts: import("./products").Product[] = [
   // {
-  //   id: "chemise-lin",
+  //   id: "linen-shirt",
   //   ref: "0001",
-  //   name: "Chemise lin",
-  //   description: "Coton brodé, coupe décontractée",
-  //   image: "/photos/products/chemise-lin.jpg",
+  //   name: "Linen shirt",
+  //   description: "Hand-embroidered cotton, relaxed fit",
+  //   image: "/photos/products/linen-shirt.jpg",
+  //   images: [
+  //     "/photos/products/linen-shirt.jpg",
+  //     "/photos/products/linen-shirt-2.jpg",
+  //     "/photos/products/linen-shirt-3.jpg",
+  //   ],
   //   category: "men",
-  //   price: "185,00 €",
-  //   href: "/men/chemise-lin",
+  //   price: "€185.00",
+  //   href: "/men/linen-shirt",
   // },
 ];
 
-export const products: Product[] = [...womenProducts, ...menProducts];
+export const products = [...womenCollection, ...menProducts];
 
 export const gallery: GalleryItem[] = [
   {
     id: "01",
-    type: "image",
-    src: "/media/images/chikankari-book.jpg",
-    alt: "Livre Chikankari et échantillon brodé",
-    width: 768,
-    height: 1024,
-  },
-  {
-    id: "02",
     type: "video",
     src: "/media/videos/process.mp4",
     alt: "Gestes de broderie en mouvement",
     width: 1080,
     height: 1920,
+    tile: "hero",
     poster: "/media/images/embroidery-hands.jpg",
+  },
+  {
+    id: "02",
+    type: "image",
+    src: "/media/images/chikankari-book.jpg",
+    alt: "Livre Chikankari et échantillon brodé",
+    width: 768,
+    height: 1024,
+    tile: "standard",
   },
   {
     id: "03",
@@ -114,6 +103,7 @@ export const gallery: GalleryItem[] = [
     alt: "Broderie à la main sur tambour",
     width: 1200,
     height: 1600,
+    tile: "standard",
   },
   {
     id: "04",
@@ -122,6 +112,7 @@ export const gallery: GalleryItem[] = [
     alt: "Atelier Taropa en vidéo",
     width: 1080,
     height: 1920,
+    tile: "standard",
     poster: "/media/images/blue-blocks.jpg",
   },
   {
@@ -131,6 +122,7 @@ export const gallery: GalleryItem[] = [
     alt: "Motif sculpté sur bloc de bois",
     width: 720,
     height: 1280,
+    tile: "standard",
   },
   {
     id: "06",
@@ -139,6 +131,7 @@ export const gallery: GalleryItem[] = [
     alt: "Savoir-faire textile en vidéo",
     width: 1080,
     height: 1920,
+    tile: "standard",
     poster: "/media/images/block-print.jpg",
   },
   {
@@ -148,6 +141,7 @@ export const gallery: GalleryItem[] = [
     alt: "Blocs d'impression indigo dans paniers",
     width: 1200,
     height: 1600,
+    tile: "standard",
   },
   {
     id: "08",
@@ -156,6 +150,17 @@ export const gallery: GalleryItem[] = [
     alt: "Atelier — broderie collective",
     width: 1600,
     height: 1200,
+    tile: "wide",
+  },
+  {
+    id: "09",
+    type: "video",
+    src: "/media/videos/workshop-03.mp4",
+    alt: "Atelier Taropa — gestes et matières",
+    width: 1080,
+    height: 1920,
+    tile: "standard",
+    poster: "/media/images/atelier-group.jpg",
   },
 ];
 
@@ -163,20 +168,38 @@ export const brand = {
   name: "Taropa",
   tagline: "archana bhushan",
   description:
-    "Taropa — prêt-à-porter brodé à la main, entre tradition et modernité.",
+    "Taropa — hand-embroidered ready-to-wear, between tradition and modernity.",
   email: "hello@taropa.fr",
   instagram: "#",
 };
 
 export const pages = {
   women: {
-    title: "Femmes",
+    title: "Women",
     intro:
-      "Robes, tops et vestes en lin et coton — chaque pièce porte la trace du geste brodeur.",
+      "Dresses, tops and jackets in linen and cotton — each piece carries the trace of the embroiderer's hand.",
   },
   men: {
-    title: "Hommes",
+    title: "Men",
     intro:
-      "Coupe fluide, matières naturelles et broderie discrète pour un vestiaire contemporain.",
+      "Relaxed cuts, natural fabrics and subtle embroidery for a contemporary wardrobe.",
+  },
+  about: {
+    title: "About us",
+    intro: "",
+    image: "/media/images/atelier-group.jpg",
+    imageAlt: "",
+    sections: [
+      { id: "origin", heading: "", body: "" },
+      { id: "chikankari", heading: "", body: "" },
+      { id: "atelier", heading: "", body: "" },
+      { id: "today", heading: "", body: "" },
+    ],
+  } satisfies AboutContent,
+  contact: {
+    title: "Contact us",
+    intro:
+      "For questions about the collection, an order or a collaboration — write to us.",
+    studio: "Paris, France — address to be completed.",
   },
 } as const;

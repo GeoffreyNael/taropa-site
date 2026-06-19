@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={cormorant.variable}>
+    <html lang="en" className={cormorant.variable}>
       <body>
         <SiteHeader />
         {children}

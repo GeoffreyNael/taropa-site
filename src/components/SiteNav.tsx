@@ -28,7 +28,7 @@ export function SiteNav() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls="site-nav-panel"
-        aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+        aria-label={open ? "Close menu" : "Open menu"}
       >
         <span
           className={
@@ -55,7 +55,7 @@ export function SiteNav() {
       <nav
         id="site-nav-panel"
         className={open ? "site-nav__panel site-nav__panel--open" : "site-nav__panel"}
-        aria-label="Navigation principale"
+        aria-label="Main navigation"
         aria-hidden={!open}
       >
         <ul className="site-nav__list">
