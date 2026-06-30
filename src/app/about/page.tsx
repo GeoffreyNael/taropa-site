@@ -12,58 +12,40 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const about = pages.about;
-  const filledSections = about.sections.filter(
-    (section) => section.heading.trim() || section.body.trim(),
-  );
-  const hasCopy = about.intro.trim() || filledSections.length > 0;
 
   return (
-    <main className="content-page">
+    <main className="content-page about-page">
       <PageHeader title={about.title} intro={about.intro || undefined} />
-      <section className="content-page__body">
-        <div className="content-page__layout">
-          <figure className="content-page__media">
-            <Image
-              src={about.image}
-              alt={about.imageAlt || about.title}
-              width={1200}
-              height={1500}
-              sizes="(max-width: 767px) 100vw, 50vw"
-              className="content-page__image"
-              priority
-            />
-          </figure>
-          <div className="content-page__copy">
-            {hasCopy ? (
-              filledSections.map((section) => (
-                <section key={section.id} className="content-page__section">
-                  {section.heading.trim() ? (
-                    <h2 className="content-page__section-heading">
-                      {section.heading}
-                    </h2>
-                  ) : null}
-                  {section.body.trim()
-                    ? section.body
-                        .split("\n\n")
-                        .filter((paragraph) => paragraph.trim())
-                        .map((paragraph) => (
-                          <p
-                            key={paragraph.slice(0, 40)}
-                            className="content-page__paragraph"
-                          >
-                            {paragraph.trim()}
-                          </p>
-                        ))
-                    : null}
-                </section>
-              ))
-            ) : (
-              <p className="page-empty">
-                Texte en préparation — la fondatrice complète le questionnaire.
-              </p>
-            )}
-          </div>
-        </div>
+      <section className="about-page__body">
+        {about.sections.map((section, index) => (
+          <article
+            key={section.id}
+            className={`about-row${index % 2 === 1 ? " about-row--reverse" : ""}`}
+          >
+            <figure className="about-row__media">
+              <Image
+                src={section.image}
+                alt={section.imageAlt}
+                width={section.width}
+                height={section.height}
+                sizes="(max-width: 767px) 100vw, 50vw"
+                className="about-row__image"
+                priority={index === 0}
+              />
+            </figure>
+            <div className="about-row__copy">
+              <h2 className="about-row__heading">{section.heading}</h2>
+              {section.body
+                .split("\n\n")
+                .filter((paragraph) => paragraph.trim())
+                .map((paragraph) => (
+                  <p key={paragraph.slice(0, 40)} className="about-row__paragraph">
+                    {paragraph.trim()}
+                  </p>
+                ))}
+            </div>
+          </article>
+        ))}
       </section>
     </main>
   );
