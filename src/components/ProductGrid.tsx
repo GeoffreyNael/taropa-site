@@ -32,9 +32,7 @@ export function ProductGrid({ products }: ProductGridProps) {
               />
             </div>
             <div className="product-card__info">
-              <h2 className="product-card__title">
-                no {product.ref} / {product.name}
-              </h2>
+              <h2 className="product-card__title">{product.name}</h2>
               {product.price ? (
                 <p className="product-card__price">{product.price}</p>
               ) : (

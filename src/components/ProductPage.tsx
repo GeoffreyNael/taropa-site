@@ -35,7 +35,6 @@ export function ProductPage({ product, backHref, backLabel }: ProductPageProps) 
         </div>
 
         <div className="product-page__info">
-          <p className="product-page__ref">no {product.ref}</p>
           <h1 className="product-page__title">{product.name}</h1>
 
           {product.price ? (

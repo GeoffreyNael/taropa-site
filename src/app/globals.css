@@ -379,17 +379,8 @@ a {
   align-self: start;
 }
 
-.product-page__ref {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
 .product-page__title {
-  margin: 0.5rem 0 0;
+  margin: 0;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 400;
   line-height: 1.25;
