@@ -42,9 +42,19 @@ export default function AboutPage() {
                       {section.heading}
                     </h2>
                   ) : null}
-                  {section.body.trim() ? (
-                    <p className="content-page__paragraph">{section.body}</p>
-                  ) : null}
+                  {section.body.trim()
+                    ? section.body
+                        .split("\n\n")
+                        .filter((paragraph) => paragraph.trim())
+                        .map((paragraph) => (
+                          <p
+                            key={paragraph.slice(0, 40)}
+                            className="content-page__paragraph"
+                          >
+                            {paragraph.trim()}
+                          </p>
+                        ))
+                    : null}
                 </section>
               ))
             ) : (

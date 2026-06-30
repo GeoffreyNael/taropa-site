@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --color-text: #000031;
-  --color-bg: #ffffff;
-  --color-muted: #6b6b7a;
-  --color-border: #e8e8ec;
+  --color-text: #1a1814;
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-muted: #6e6a63;
+  --color-border: #e8e4dc;
+  --color-accent: #9a7b5c;
   --font-serif: var(--font-display), "Times New Roman", serif;
   --font-sans: system-ui, -apple-system, sans-serif;
   --header-height: 68px;
@@ -113,7 +115,7 @@ a {
   position: fixed;
   inset: 0;
   z-index: 110;
-  background: rgba(0, 0, 49, 0.2);
+  background: rgba(26, 24, 20, 0.22);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -280,7 +282,7 @@ a {
   position: relative;
   overflow: hidden;
   aspect-ratio: 3 / 4;
-  background: #f6f6f8;
+  background: #ede8e0;
 }
 
 .product-card__image {
@@ -364,7 +366,7 @@ a {
 .product-page__figure {
   margin: 0;
   overflow: hidden;
-  background: #f6f6f8;
+  background: #ede8e0;
 }
 
 .product-page__image {
@@ -538,28 +540,42 @@ a {
   line-height: 1.6;
 }
 
-/* ── Mosaic Pinterest — plein écran, dense, responsive ── */
+/* ── Home mosaic — Pinterest editorial, dense, ultra-luxe ── */
+
+.home-page {
+  background: var(--color-bg);
+}
 
 .mosaic-feed {
   width: 100%;
   padding: 0;
+  background: var(--color-bg);
 }
 
 .mosaic {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(var(--mosaic-cols, 2), 1fr);
-  grid-auto-rows: var(--mosaic-row, 8px);
+  grid-auto-rows: var(--mosaic-row, 6px);
   grid-auto-flow: dense;
-  gap: var(--mosaic-gap, 2px);
+  gap: var(--mosaic-gap, 3px);
 }
 
-.mosaic__item {
+.mosaic__cell {
   position: relative;
-  overflow: hidden;
-  margin: 0;
+  display: block;
   grid-column: span var(--col-span, 1);
   grid-row-end: span var(--row-span, 1);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mosaic__figure {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #ede8e0;
 }
 
 .mosaic__media {
@@ -568,11 +584,18 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center 18%;
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.mosaic__item--banner .mosaic__media {
+.mosaic__figure--video .mosaic__media {
   object-position: center center;
+}
+
+.mosaic__cell:hover .mosaic__media,
+.mosaic__cell:focus-within .mosaic__media {
+  transform: scale(1.04);
 }
 
 .site-footer {

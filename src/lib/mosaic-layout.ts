@@ -1,18 +1,36 @@
 import type { GalleryItem, GalleryTile } from "@/lib/brand";
 
-export const MOSAIC_GAP = 2;
-export const MOSAIC_ROW = 8;
+export const MOSAIC_GAP = 3;
+export const MOSAIC_ROW = 6;
 
 export function mosaicColumns(containerWidth: number): number {
-  if (containerWidth < 480) return 2;
+  if (containerWidth < 520) return 2;
   if (containerWidth < 768) return 3;
-  if (containerWidth < 1200) return 4;
-  return 5;
+  if (containerWidth < 1100) return 4;
+  if (containerWidth < 1500) return 5;
+  return 6;
 }
 
-export function mosaicColSpan(tile: GalleryTile, columns: number): number {
-  if (tile === "hero") return columns;
-  if (tile === "wide") return Math.min(columns, Math.max(2, Math.ceil(columns * 0.5)));
+export function mosaicColSpan(
+  tile: GalleryTile,
+  columns: number,
+  mediaWidth: number,
+  mediaHeight: number,
+): number {
+  const aspect = mediaWidth / mediaHeight;
+
+  if (tile === "wide" || aspect > 1.15) {
+    if (columns >= 4) return 2;
+    if (columns === 3) return 2;
+    return columns;
+  }
+
+  if (tile === "hero") {
+    if (columns >= 4) return 2;
+    if (columns === 3) return 2;
+    return columns;
+  }
+
   return 1;
 }
 
@@ -37,15 +55,18 @@ export function mosaicItemStyle(
   containerWidth: number,
 ): { columns: number; colSpan: number; rowSpan: number } {
   const columns = mosaicColumns(containerWidth);
-  const colSpan = mosaicColSpan(item.tile, columns);
-  const mediaWidth = item.tile === "hero" ? 16 : item.width;
-  const mediaHeight = item.tile === "hero" ? 9 : item.height;
+  const colSpan = mosaicColSpan(
+    item.tile,
+    columns,
+    item.width,
+    item.height,
+  );
   const rowSpan = mosaicRowSpan(
     containerWidth,
     columns,
     colSpan,
-    mediaWidth,
-    mediaHeight,
+    item.width,
+    item.height,
   );
   return { columns, colSpan, rowSpan };
 }

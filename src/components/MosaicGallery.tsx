@@ -10,6 +10,41 @@ import {
   mosaicItemStyle,
 } from "@/lib/mosaic-layout";
 
+function MosaicMedia({
+  item,
+  priority,
+}: {
+  item: (typeof gallery)[number];
+  priority: boolean;
+}) {
+  if (item.type === "video") {
+    return (
+      <video
+        className="mosaic__media"
+        src={item.src}
+        poster={item.poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label={item.alt}
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={item.src}
+      alt={item.alt}
+      fill
+      sizes="(max-width: 520px) 50vw, (max-width: 768px) 33vw, (max-width: 1100px) 25vw, (max-width: 1500px) 20vw, 16vw"
+      priority={priority}
+      className="mosaic__media"
+    />
+  );
+}
+
 export function MosaicGallery() {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -33,7 +68,7 @@ export function MosaicGallery() {
   const columns = width > 0 ? mosaicItemStyle(gallery[0], width).columns : 2;
 
   return (
-    <section className="mosaic-feed" aria-label="Galerie lifestyle">
+    <section className="mosaic-feed" aria-label="Taropa — craft and atelier">
       <div
         ref={ref}
         className="mosaic"
@@ -49,16 +84,12 @@ export function MosaicGallery() {
           const layout =
             width > 0
               ? mosaicItemStyle(item, width)
-              : { colSpan: 1, rowSpan: 30 };
+              : { colSpan: 1, rowSpan: 36 };
 
           return (
-            <figure
+            <div
               key={item.id}
-              className={
-                item.tile === "hero"
-                  ? "mosaic__item mosaic__item--banner"
-                  : "mosaic__item"
-              }
+              className="mosaic__cell"
               style={
                 {
                   "--col-span": layout.colSpan,
@@ -66,29 +97,12 @@ export function MosaicGallery() {
                 } as CSSProperties
               }
             >
-              {item.type === "video" ? (
-                <video
-                  className="mosaic__media"
-                  src={item.src}
-                  poster={item.poster}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  aria-label={item.alt}
-                />
-              ) : (
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
-                  priority={index < 4}
-                  className="mosaic__media"
-                />
-              )}
-            </figure>
+              <figure
+                className={`mosaic__figure${item.type === "video" ? " mosaic__figure--video" : ""}`}
+              >
+                <MosaicMedia item={item} priority={index < 4} />
+              </figure>
+            </div>
           );
         })}
       </div>
