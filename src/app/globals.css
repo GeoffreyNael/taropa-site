@@ -622,6 +622,21 @@ a {
   background: var(--color-bg);
 }
 
+.home-hero {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #ede8e0;
+}
+
+.home-hero__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center center;
+}
+
 .mosaic-feed {
   width: 100%;
   padding: 0;

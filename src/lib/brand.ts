@@ -64,6 +64,13 @@ export const menCategories: CollectionCategory[] = [
 
 export const products = [...womenCollection, ...menProducts];
 
+export const homeHero = {
+  src: "/media/images/laundry-sun.jpg",
+  alt: "White fabric drying in the sun — Taropa workshop, Lucknow",
+  width: 533,
+  height: 533,
+};
+
 export const gallery: GalleryItem[] = [
   {
     id: "01",
