@@ -111,6 +111,15 @@ export const gallery: GalleryItem[] = [
     tile: "standard",
   },
   {
+    id: "05b",
+    type: "image",
+    src: "/media/images/craft-textile.jpg",
+    alt: "Hand-embroidered chikankari textile — detail of thread and fabric",
+    width: 1600,
+    height: 1600,
+    tile: "standard",
+  },
+  {
     id: "06",
     type: "video",
     src: "/media/videos/workshop-01.mp4",
