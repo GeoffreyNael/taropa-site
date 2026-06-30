@@ -65,23 +65,15 @@ export const menCategories: CollectionCategory[] = [
 export const products = [...womenCollection, ...menProducts];
 
 export const homeHero = {
-  src: "/media/images/laundry-sun.jpg",
+  type: "video" as const,
+  src: "/media/videos/process.mp4",
   alt: "White fabric drying in the sun — Taropa workshop, Lucknow",
-  width: 533,
-  height: 533,
+  poster: "/media/images/laundry-sun.jpg",
+  width: 1080,
+  height: 1920,
 };
 
 export const gallery: GalleryItem[] = [
-  {
-    id: "01",
-    type: "video",
-    src: "/media/videos/process.mp4",
-    alt: "Hand embroidery in motion — chikankari stitches on frame",
-    width: 1080,
-    height: 1920,
-    tile: "hero",
-    poster: "/media/images/embroidery-hands.jpg",
-  },
   {
     id: "02",
     type: "image",

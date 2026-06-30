@@ -13,9 +13,10 @@ export type Product = {
   href: string;
 };
 
-function productPaths(slug: string, count: number) {
-  const images = Array.from({ length: count }, (_, i) =>
-    `/photos/products/${slug}/${String(i + 1).padStart(2, "0")}.png`,
+/** Build image paths. Order matters: index 0 = cover (always front-facing). */
+function productImages(slug: string, order: number[]) {
+  const images = order.map(
+    (n) => `/photos/products/${slug}/${String(n).padStart(2, "0")}.png`,
   );
   return { image: images[0], images };
 }
@@ -30,7 +31,7 @@ export const womenProducts: Product[] = [
       "The soul of understated elegance. Crafted in airy mul chanderi and adorned with delicate hand-embroidered chikankari, Ruh pairs timeless craftsmanship with graceful gathered trousers finished with intricate lace details. Soft, refined, and endlessly versatile.",
     category: "women",
     href: "/women/ruh",
-    ...productPaths("ruh", 3),
+    ...productImages("ruh", [2, 3, 1]),
   },
   {
     id: "ayla",
@@ -40,7 +41,7 @@ export const womenProducts: Product[] = [
       "Light as moonlight, effortless as a summer breeze. Ayla is a study in quiet sophistication, featuring hand-embroidered chikankari on fluid mul chanderi, paired with softly gathered trousers. Feminine, graceful, and designed for everyday beauty.",
     category: "women",
     href: "/women/ayla",
-    ...productPaths("ayla", 3),
+    ...productImages("ayla", [1, 3, 2]),
   },
   {
     id: "nura",
@@ -50,7 +51,7 @@ export const womenProducts: Product[] = [
       "Where light meets craftsmanship. Featuring delicate blue chikankari embroidery on mul chanderi, Nura is elevated with lace accents and finely pleated trousers. A fresh interpretation of heritage artistry with a contemporary spirit.",
     category: "women",
     href: "/women/nura",
-    ...productPaths("nura", 3),
+    ...productImages("nura", [2, 3, 1]),
   },
   {
     id: "gul",
@@ -60,7 +61,7 @@ export const womenProducts: Product[] = [
       "Inspired by the poetry of a blooming flower. A flowing chanderi kaftan dress adorned with hand-embroidered chikankari, Gul celebrates femininity through soft drapes, gentle movement, and timeless elegance.",
     category: "women",
     href: "/women/gul",
-    ...productPaths("gul", 3),
+    ...productImages("gul", [1, 3, 2]),
   },
   {
     id: "ira",
@@ -70,7 +71,7 @@ export const womenProducts: Product[] = [
       "An expression of art, woven into every thread. Featuring a harmonious blend of floral and geometric chikankari motifs, Ira is crafted in mul chanderi and paired with embroidered culottes. Distinctive, artistic, and effortlessly modern.",
     category: "women",
     href: "/women/ira",
-    ...productPaths("ira", 3),
+    ...productImages("ira", [1, 2, 3]),
   },
   {
     id: "aina",
@@ -80,7 +81,7 @@ export const womenProducts: Product[] = [
       "Softness, stitched in every thread. Delicate pastel chikankari blooms across airy mul chanderi, creating a look that feels light, graceful, and effortlessly elegant. Finished with classic ivory trousers, Aina is timeless in every sense.",
     category: "women",
     href: "/women/aina",
-    ...productPaths("aina", 3),
+    ...productImages("aina", [1, 2, 3]),
   },
   {
     id: "kaia",
@@ -90,7 +91,7 @@ export const womenProducts: Product[] = [
       "Where heritage meets modern femininity. A contemporary Magyar silhouette comes alive with floral and geometric chikankari, while lace accents and pintuck trousers add layers of delicate craftsmanship. Kaia is tradition interpreted with a modern eye.",
     category: "women",
     href: "/women/kaia",
-    ...productPaths("kaia", 3),
+    ...productImages("kaia", [1, 2, 3]),
   },
   {
     id: "lila",
@@ -100,7 +101,7 @@ export const womenProducts: Product[] = [
       "Designed to move as beautifully as you do. A flowing kaftan silhouette adorned with peach-toned hand embroidery captures effortless elegance through fluid drapes, gentle movement, and understated charm.",
     category: "women",
     href: "/women/lila",
-    ...productPaths("lila", 3),
+    ...productImages("lila", [1, 2, 3]),
   },
   {
     id: "mehr",
@@ -110,7 +111,7 @@ export const womenProducts: Product[] = [
       "A reflection of warmth and grace. Soft shades of blush and sage unfold through intricate hand-embroidered chikankari on luxurious silk chanderi. Paired with elegant narrow trousers, Mehr is refined, feminine, and quietly radiant.",
     category: "women",
     href: "/women/mehr",
-    ...productPaths("mehr", 3),
+    ...productImages("mehr", [1, 3, 2]),
   },
   {
     id: "mira",
@@ -120,7 +121,7 @@ export const womenProducts: Product[] = [
       "Bold artistry, softened by movement. Statement floral chikankari transforms an asymmetrical chanderi kurta into a striking expression of craftsmanship, balanced by fluid harem trousers that move with effortless grace.",
     category: "women",
     href: "/women/mira",
-    ...productPaths("mira", 3),
+    ...productImages("mira", [1, 2, 3]),
   },
   {
     id: "naz",
@@ -130,7 +131,7 @@ export const womenProducts: Product[] = [
       "Inspired by the elegance of the lotus. Intricately embroidered in shades of blush and green, Naz celebrates one of India's most timeless symbols of beauty. Crafted in chanderi and paired with classic straight trousers, it is graceful in every detail.",
     category: "women",
     href: "/women/naz",
-    ...productPaths("naz", 3),
+    ...productImages("naz", [1, 2, 3]),
   },
   {
     id: "reva",
@@ -140,7 +141,7 @@ export const womenProducts: Product[] = [
       "Contemporary layers, timeless craft. A sleeveless embroidered gilet paired with delicately detailed trousers brings depth, texture, and modern sophistication to the enduring art of chikankari.",
     category: "women",
     href: "/women/reva",
-    ...productPaths("reva", 3),
+    ...productImages("reva", [1, 2, 3]),
   },
   {
     id: "suri",
@@ -150,7 +151,7 @@ export const womenProducts: Product[] = [
       "An ode to flowers in bloom. Butter and ivory floral chikankari blossom across soft chanderi, creating a silhouette that is delicate, romantic, and timelessly feminine.",
     category: "women",
     href: "/women/suri",
-    ...productPaths("suri", 3),
+    ...productImages("suri", [2, 3, 1]),
   },
   {
     id: "tara",
@@ -160,7 +161,7 @@ export const womenProducts: Product[] = [
       "Colour, crafted with grace. A vibrant hand-embroidered yoke in soft pastel hues transforms this mid-thigh kurta into a joyful celebration of colour, craftsmanship, and individuality.",
     category: "women",
     href: "/women/tara",
-    ...productPaths("tara", 2),
+    ...productImages("tara", [1, 2]),
   },
   {
     id: "yara",
@@ -170,7 +171,7 @@ export const womenProducts: Product[] = [
       "A tribute to Mughal grandeur. Inspired by the intricate floral artistry of the Mughal era, Yara honours centuries of craftsmanship through timeless hand-embroidered chikankari on a classic kurta silhouette.",
     category: "women",
     href: "/women/yara",
-    ...productPaths("yara", 3),
+    ...productImages("yara", [1, 3, 2]),
   },
   {
     id: "zia",
@@ -180,7 +181,7 @@ export const womenProducts: Product[] = [
       "Contemporary elegance with an artisanal soul. A kimono-inspired ivory silhouette paired with wrap-around trousers reimagines traditional chikankari through clean lines, fluid drapes, and modern sophistication.",
     category: "women",
     href: "/women/zia",
-    ...productPaths("zia", 3),
+    ...productImages("zia", [1, 2, 3]),
   },
 ];
 
@@ -194,7 +195,7 @@ export const menProducts: Product[] = [
       "Inspired by the rhythm of tradition. Textured chanderi adorned with circular hand-embroidered motifs reflects the timeless beauty of Indian craftsmanship. Paired with a traditional salwar, Abeer is a quiet celebration of heritage, reimagined for the modern man.",
     category: "men",
     href: "/men/abeer",
-    ...productPaths("abeer", 2),
+    ...productImages("abeer", [1, 2]),
   },
   {
     id: "rumi",
@@ -204,7 +205,7 @@ export const menProducts: Product[] = [
       "Crafted with precision, defined by simplicity. Tailored in chanderi with self-geometric textures, Rumi celebrates clean lines, thoughtful detailing, and modern refinement.",
     category: "men",
     href: "/men/rumi",
-    ...productPaths("rumi", 3),
+    ...productImages("rumi", [3, 1, 2]),
   },
   {
     id: "sahir",
@@ -214,7 +215,7 @@ export const menProducts: Product[] = [
       "Minimal by design, rich in craftsmanship. Intricate dori embroidery adds depth and character to a timeless chanderi silhouette, creating a look that is effortlessly elegant and enduring.",
     category: "men",
     href: "/men/sahir",
-    ...productPaths("sahir", 3),
+    ...productImages("sahir", [1, 2, 3]),
   },
   {
     id: "ruhan",
@@ -224,7 +225,7 @@ export const menProducts: Product[] = [
       "The beauty of subtle detail. Self-striped chanderi and tonal embroidered motifs create a composition of quiet texture and understated elegance, where craftsmanship speaks softly.",
     category: "men",
     href: "/men/ruhan",
-    ...productPaths("ruhan", 3),
+    ...productImages("ruhan", [1, 2, 3]),
   },
   {
     id: "rey",
@@ -234,7 +235,7 @@ export const menProducts: Product[] = [
       "Geometry meets quiet sophistication. A finely embroidered geometric yoke on luxurious siya-saka fabric offers a refined interpretation of festive menswear — minimal, elegant, and unmistakably distinctive.",
     category: "men",
     href: "/men/rey",
-    ...productPaths("rey", 3),
+    ...productImages("rey", [1, 2, 3]),
   },
   {
     id: "riaz",
@@ -244,7 +245,7 @@ export const menProducts: Product[] = [
       "Rooted in heritage, tailored for today. An insertion-detail chanderi shirt paired with a traditional salwar or dhoti honours classic Indian dressing while embracing contemporary tailoring.",
     category: "men",
     href: "/men/riaz",
-    ...productPaths("riaz", 3),
+    ...productImages("riaz", [1, 2, 3]),
   },
 ];
 
