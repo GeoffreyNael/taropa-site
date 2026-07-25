@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
+import { ProductGallery } from "@/components/ProductGallery";
 
 type ProductPageProps = {
   product: Product;
@@ -18,21 +18,7 @@ export function ProductPage({ product, backHref, backLabel }: ProductPageProps) 
       </nav>
 
       <div className="product-page__layout">
-        <div className="product-page__gallery">
-          {product.images.map((src, index) => (
-            <figure key={src} className="product-page__figure">
-              <Image
-                src={src}
-                alt={`${product.name} — photo ${index + 1}`}
-                width={900}
-                height={1200}
-                sizes="(max-width: 767px) 100vw, 45vw"
-                priority={index === 0}
-                className="product-page__image"
-              />
-            </figure>
-          ))}
-        </div>
+        <ProductGallery images={product.images} productName={product.name} />
 
         <div className="product-page__info">
           <h1 className="product-page__title">{product.name}</h1>

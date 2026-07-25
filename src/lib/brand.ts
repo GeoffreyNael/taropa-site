@@ -34,7 +34,8 @@ export {
 } from "./products";
 import { menProducts, womenProducts as womenCollection } from "./products";
 
-export type GalleryTile = "hero" | "standard" | "wide";
+/** tall 3:4 · wide 4:3 · square 1:1 — crop Pinterest, indépendant du fichier source */
+export type GalleryTile = "tall" | "wide" | "square";
 
 export type GalleryItem = {
   id: string;
@@ -45,6 +46,13 @@ export type GalleryItem = {
   height: number;
   tile: GalleryTile;
   poster?: string;
+};
+
+/** Ratios d’affichage mosaïque (crop object-fit: cover). */
+export const galleryTileRatio: Record<GalleryTile, number> = {
+  tall: 3 / 4,
+  wide: 4 / 3,
+  square: 1,
 };
 
 export const nav: NavItem[] = [
@@ -64,110 +72,292 @@ export const menCategories: CollectionCategory[] = [
 
 export const products = [...womenCollection, ...menProducts];
 
+/** Hero landing — atelier en mouvement. */
 export const homeHero = {
   type: "video" as const,
-  src: "/media/videos/process.mp4",
-  alt: "White fabric drying in the sun — Taropa workshop, Lucknow",
-  poster: "/media/images/laundry-sun.jpg",
-  width: 1080,
-  height: 1920,
+  src: "/media/videos/hero-main.mp4",
+  alt: "Women embroidering together in the Taropa workshop, Lucknow",
+  poster: "/media/images/hero-main-poster.jpg",
+  width: 1920,
+  height: 1080,
 };
 
+export type HomeStoryMedia = {
+  type: "image" | "video";
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  poster?: string;
+};
+
+export type HomeStoryChapter = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  paragraphs: string[];
+  media: HomeStoryMedia;
+};
+
+/**
+ * Mosaïque — 15 médias vifs (hors hero).
+ * Priorité atelier coloré (rouge, indigo, or, sols, vêtements) — peu de crème produit.
+ * Amovible : ajoute / retire / réordonne ici.
+ */
 export const gallery: GalleryItem[] = [
   {
-    id: "02",
-    type: "image",
-    src: "/media/images/chikankari-book.jpg",
-    alt: "Chikankari reference book and embroidered swatch",
-    width: 768,
-    height: 1024,
-    tile: "standard",
-  },
-  {
-    id: "03",
-    type: "image",
-    src: "/media/images/embroidery-hands.jpg",
-    alt: "Artisan embroidering chikankari by hand on a frame",
-    width: 1200,
-    height: 1600,
-    tile: "standard",
-  },
-  {
-    id: "04",
-    type: "video",
-    src: "/media/videos/workshop-02.mp4",
-    alt: "Taropa workshop — artisans at work in Lucknow",
-    width: 1080,
-    height: 1920,
-    tile: "standard",
-    poster: "/media/images/blue-blocks.jpg",
-  },
-  {
-    id: "05",
-    type: "image",
-    src: "/media/images/block-print.jpg",
-    alt: "Hand-carved wooden block for textile printing",
-    width: 720,
-    height: 1280,
-    tile: "standard",
-  },
-  {
-    id: "05b",
-    type: "image",
-    src: "/media/images/craft-atelier.jpg",
-    alt: "Artisan at work — chikankari embroidery in the Lucknow atelier",
-    width: 1200,
-    height: 1600,
-    tile: "standard",
-  },
-  {
-    id: "06",
-    type: "image",
-    src: "/media/images/craft-workshop.jpg",
-    alt: "Workshop scene — fabric, thread and hand embroidery in progress",
-    width: 1200,
-    height: 1600,
-    tile: "standard",
-  },
-  {
-    id: "07",
-    type: "image",
-    src: "/media/images/blue-blocks.jpg",
-    alt: "Indigo printing blocks in woven baskets",
-    width: 1200,
-    height: 1600,
-    tile: "standard",
-  },
-  {
-    id: "08",
+    id: "01",
     type: "image",
     src: "/media/images/atelier-group.jpg",
-    alt: "Women artisans embroidering together in the Lucknow workshop",
+    alt: "Atelier — purple hoop, teal shirt, patterned floor",
     width: 1600,
     height: 1200,
     tile: "wide",
   },
   {
+    id: "02",
+    type: "image",
+    src: "/media/images/blue-blocks.jpg",
+    alt: "Deep indigo printing blocks in woven baskets",
+    width: 1200,
+    height: 1600,
+    tile: "tall",
+  },
+  {
+    id: "03",
+    type: "image",
+    src: "/media/images/IMG_9720.jpg",
+    alt: "Hands embroidering on a bright red frame",
+    width: 2000,
+    height: 1500,
+    tile: "wide",
+  },
+  {
+    id: "04",
+    type: "image",
+    src: "/media/images/IMG_9672.jpg",
+    alt: "Artisans in red and orange — shared embroidery",
+    width: 2000,
+    height: 1500,
+    tile: "wide",
+  },
+  {
+    id: "05",
+    type: "video",
+    src: "/media/videos/home-01.mp4",
+    alt: "Taropa workshop in motion",
+    width: 1920,
+    height: 1080,
+    tile: "wide",
+    poster: "/media/images/home-01-poster.jpg",
+  },
+  {
+    id: "06",
+    type: "image",
+    src: "/media/images/IMG_9715.jpg",
+    alt: "Gold sequin and cream chikankari detail",
+    width: 1500,
+    height: 2000,
+    tile: "tall",
+  },
+  {
+    id: "07",
+    type: "image",
+    src: "/media/images/IMG_9737.jpg",
+    alt: "Royal blue outlines on embroidered silk",
+    width: 2000,
+    height: 1500,
+    tile: "wide",
+  },
+  {
+    id: "08",
+    type: "image",
+    src: "/media/images/block-print.jpg",
+    alt: "Hand-carved wooden printing block — warm wood",
+    width: 720,
+    height: 1280,
+    tile: "tall",
+  },
+  {
     id: "09",
     type: "video",
     src: "/media/videos/workshop-03.mp4",
-    alt: "Taropa atelier — gestures, thread and fabric",
+    alt: "Atelier gestures — thread and fabric",
     width: 1080,
     height: 1920,
-    tile: "standard",
+    tile: "tall",
     poster: "/media/images/atelier-group.jpg",
+  },
+  {
+    id: "10",
+    type: "image",
+    src: "/media/images/embroidery-hands.jpg",
+    alt: "Close-up embroidery on frame",
+    width: 1200,
+    height: 1600,
+    tile: "tall",
+  },
+  {
+    id: "11",
+    type: "video",
+    src: "/media/videos/home-02.mp4",
+    alt: "Fabric and embroidery in motion",
+    width: 1920,
+    height: 1080,
+    tile: "wide",
+    poster: "/media/images/home-02-poster.jpg",
+  },
+  {
+    id: "12",
+    type: "image",
+    src: "/media/images/chikankari-book.jpg",
+    alt: "Chikankari book and embroidered swatch",
+    width: 768,
+    height: 1024,
+    tile: "square",
+  },
+  {
+    id: "13",
+    type: "video",
+    src: "/media/videos/workshop-01.mp4",
+    alt: "Workshop process — Lucknow",
+    width: 1080,
+    height: 1920,
+    tile: "tall",
+    poster: "/media/images/blue-blocks.jpg",
+  },
+  {
+    id: "14",
+    type: "image",
+    src: "/media/images/IMG_9730.jpg",
+    alt: "Navy and cream floral embroidery detail",
+    width: 1500,
+    height: 2000,
+    tile: "tall",
+  },
+  {
+    id: "15",
+    type: "video",
+    src: "/media/videos/workshop-02.mp4",
+    alt: "Artisans at the embroidery frame",
+    width: 1080,
+    height: 1920,
+    tile: "tall",
+    poster: "/media/images/IMG_9672.jpg",
   },
 ];
 
 export const brand = {
   name: "Taropa",
-  tagline: "archana bhushan",
+  tagline: "Archana Bhushan",
   description:
     "Finest chikankari, handcrafted in Lucknow by master artisans for over 38 years.",
   manifesto: "Made by hand, in India.",
-  email: "hello@taropa.fr",
-  instagram: "#",
+  email: "asbhushan@gmail.com",
+  phone: "+91 9971470002",
+  instagram: "https://instagram.com/archana_taropa",
+  instagramHandle: "@archana_taropa",
 };
+
+/**
+ * Accueil — fil conducteur « Made by hand ».
+ * Ordre narratif : promesse → femmes → gestes → blueprint → temps → close → collection.
+ * Aucune pièce de collection avant le dernier chapitre.
+ */
+export const homeContent = {
+  hero: {
+    line: "Made by hand, in India.",
+  },
+  /** Chapitres zigzag — médias choisis pour le récit craft. */
+  story: [
+    {
+      id: "women",
+      eyebrow: "The women",
+      title: "Workshops led by women",
+      paragraphs: [
+        "Every piece is made in Lucknow, across small home workshops — each led by a woman who has opened her home to relatives, friends and neighbours. For many, whose families do not permit them to work outside the home, it is the only way to earn an independent livelihood.",
+        "Depending on the work, between 60 and 100 women work with Taropa at any time. In some workshops, three or four generations of the same family work with us.",
+      ],
+      media: {
+        type: "image",
+        src: "/media/images/IMG_9672.jpg",
+        alt: "Women artisans embroidering together on a shared frame",
+        width: 2000,
+        height: 1500,
+      },
+    },
+    {
+      id: "gesture",
+      eyebrow: "The gesture",
+      title: "Stitch by stitch",
+      paragraphs: [
+        "It begins with an outline on fabric. Then the needle — thirty-two stitches passed down through generations.",
+        "What still moves me is watching that bare outline become something lasting. That is what chikankari means to me.",
+      ],
+      media: {
+        type: "video",
+        src: "/media/videos/workshop-02.mp4",
+        alt: "Hands embroidering chikankari at the frame",
+        width: 1080,
+        height: 1920,
+        poster: "/media/images/embroidery-hands.jpg",
+      },
+    },
+    {
+      id: "blueprint",
+      eyebrow: "The blueprint",
+      title: "No shortcuts",
+      paragraphs: [
+        "Wooden blocks imprint a blue outline — the map of the piece. Then embroidery, washing, dyeing, tailoring.",
+        "The blue disappears. Only the handwork remains. From the start: silk thread, never cotton. Never machine-made.",
+      ],
+      media: {
+        type: "image",
+        src: "/media/images/blue-blocks.jpg",
+        alt: "Hand-carved indigo printing blocks in a woven basket",
+        width: 1200,
+        height: 1600,
+      },
+    },
+    {
+      id: "time",
+      eyebrow: "Time",
+      title: "Months in a garment",
+      paragraphs: [
+        "A single piece can take months. A hand-embroidered saree: six months minimum — kept and passed on.",
+        "Fabric washes in the sun. The hours stay in the cloth.",
+      ],
+      media: {
+        type: "video",
+        src: "/media/videos/process.mp4",
+        alt: "White fabric drying in the sun after washing — Lucknow",
+        width: 1920,
+        height: 1080,
+        poster: "/media/images/laundry-sun.jpg",
+      },
+    },
+  ] satisfies HomeStoryChapter[],
+  close: {
+    text: "For those who recognise the hand in the cloth — and never need it explained.",
+    href: "/about",
+    label: "Read the full story",
+  },
+  collection: {
+    title: "The collection",
+    intro:
+      "Hand-embroidered pret — ivory, blush, sage, and lime. Contemporary silhouettes, traditional craft.",
+    womenHref: "/women",
+    menHref: "/men",
+    womenLabel: "View women",
+    menLabel: "View men",
+  },
+  contactCta: {
+    title: "Write to us",
+    text: "Questions about the collection, an order, or a collaboration.",
+    href: "/contact",
+    label: "Contact",
+  },
+} as const;
 
 export const pages = {
   women: {
@@ -192,7 +382,7 @@ export const pages = {
         imageAlt: "Women artisans embroidering together in the Lucknow workshop",
         width: 1600,
         height: 1200,
-        body: "The name comes from my grandmother. Taropa in Punjabi means to stitch — a small word she used often, one that stayed with me. When it came time to name this brand, nothing else felt as true.\n\nI was young and newly settled in Lucknow — a city with a culture so deep and layered, it reveals itself slowly. I found myself drawn to its craft: the artisans, the embroidery, the endless hours that went into every piece. Growing up, I had watched my mother make bags and clothes by hand. That love for fashion and making things stayed with me. When I encountered chikankari in Lucknow, bringing the two together felt like the most natural thing to do. Taropa grew from there.\n\nWhen I first started, I used silk thread instead of the existing cotton thread — to create more luxurious garments which was not being done in the market. My intention has been simple: stay true to the craft and never compromise on it. No shortcuts — only hand embroidery, done the way it has always been done.\n\nBeyond the product, I wanted to build something that mattered to the people making it. Taropa works with a community of women artisans in Lucknow, ensuring the craft provides them a real and dignified livelihood. And while the embroidery remains traditional, the silhouettes move between classic and contemporary — because this art deserves to live in the modern wardrobe too.\n\nChikankari is a dying art as young generations are choosing better paying jobs. Taropa exists, in part, to make sure it doesn't.",
+        body: "The name comes from my grandmother. In Punjabi, Taropa means to stitch — the only word that felt true for this brand.\n\nI settled young in Lucknow and was drawn to its craft. Growing up, I had watched my mother make clothes by hand. When I found chikankari, bringing the two together felt natural.\n\nFrom the start I used silk thread instead of cotton. The rule has stayed simple: no shortcuts, only hand embroidery.\n\nWe work with women artisans in Lucknow so the craft remains a real livelihood. Embroidery traditional, silhouettes classic to contemporary. Chikankari is a dying art. Taropa exists to keep it alive.",
       },
       {
         id: "chikankari",
@@ -201,16 +391,16 @@ export const pages = {
         imageAlt: "Artisan embroidering chikankari by hand on a frame",
         width: 1200,
         height: 1600,
-        body: "Chikankari is not just embroidery. It is a journey. It begins with a blueprint — a simple outline on fabric. From there, skilled women artisans in rural Lucknow work in small frames, stitch by stitch, drawing from 32 distinct stitches passed down through generations. The hours are endless. The focus, absolute.\n\nWhat moves me most is witnessing what emerges from that process. Watching a bare outline slowly become something intricate and timeless — that transformation never loses its wonder, no matter how many years I have been doing this. That these women, working quietly in small settings, can create something so extraordinarily beautiful — that is what chikankari means to me.\n\nPure silk chiffon is the fabric I am most drawn to. It is so delicate, so transparent, that the hand embroidery comes out beautifully on it. The stitches I love most are shadow and jali work — both have a quiet complexity to them. They add depth and dimensionality to the finished piece in a way that is subtle but unmistakable.\n\nWhat the world rarely sees is the hours, days and months that go into a single piece. Women artisans working tirelessly, in small frames, with a precision and delicacy that is honestly inspiring to witness. People often ask if it is computerised or machine-made. That question, more than anything, shows how far we have drifted from understanding what handcraft really means. The answer is no — and the difference, once you know what to look for, is unmistakable.\n\nMachine-made chikankari has flooded the market. It is faster, cheaper, and everywhere. But the art of true hand embroidery — the kind that can take months of focused, skilled work — is increasingly known only to those who have taken the time to understand it. Taropa exists for those people.",
+        body: "It begins with an outline on fabric. Then women artisans in rural Lucknow work in small frames, stitch by stitch — 32 stitches passed down through generations.\n\nWhat still moves me is watching that bare outline become something lasting. That is what chikankari means to me.\n\nI favour pure silk chiffon, and shadow and jali stitches — subtle, but they give real depth. A single piece can take months. It is never machine-made. Taropa is for those who can see the difference.",
       },
       {
         id: "atelier",
         heading: "The workshop & the artisans",
-        image: "/media/images/craft-atelier.jpg",
-        imageAlt: "Artisan at work — chikankari embroidery in the Lucknow atelier",
-        width: 1200,
-        height: 1600,
-        body: "Every Taropa piece is made in Lucknow, across multiple small workshops — each one led by a woman artisan who has opened her home to her relatives, friends, and neighbours. This setup is more than practical. For many of these women, whose families do not permit them to work outside the home, it is the only way they can earn an independent livelihood. What begins as a workspace becomes a community.\n\nDepending on the work at hand, between 60 and 100 women work with Taropa at any given time — each one a specialist in this intricate craft.\n\nThe process begins with hand-carved wooden blocks used to imprint the fabric with a blue outline — a blueprint for the embroidery to follow. The style of work and thread are then determined, and the artisans begin their work, stitch by stitch. Once the embroidery is complete, the fabric is washed, dyed, and finally tailored into the finished piece. Those original blue lines disappear entirely — leaving only the embroidery behind.\n\nWhat began as a love for the craft became, over time, an equally deep love for the women who bring it to life. My relationship with my artisans is one of genuine respect — built over decades of working closely together, with consistent work and reliable payment. Many of these women have been with me for years. In some workshops, I now work with three, even four generations of the same family. That continuity means everything to me.",
+        image: "/media/images/block-print.jpg",
+        imageAlt: "Hand-carved wooden block for textile printing — Lucknow atelier",
+        width: 720,
+        height: 1280,
+        body: "Every Taropa piece is made in Lucknow, across multiple small workshops — each one led by a woman artisan who has opened her home to relatives, friends and neighbours. For many of these women, whose families do not permit them to work outside the home, it is the only way they can earn an independent livelihood.\n\nDepending on the work, between 60 and 100 women work with Taropa at any time. Wooden blocks imprint a blue outline — the blueprint. Then embroidery, washing, dyeing, tailoring. The blue disappears; only the handwork remains.\n\nMany of these women have been with me for years. In some workshops I now work with three or four generations of the same family.",
       },
       {
         id: "today",
@@ -219,7 +409,7 @@ export const pages = {
         imageAlt: "Indigo printing blocks in woven baskets — Lucknow craft",
         width: 1200,
         height: 1600,
-        body: "Taropa is rooted in India, with every piece made in Lucknow — the home of chikankari. Our customers span the world, from India to the UK, USA, UAE, Thailand and beyond. We also produce couture-level embroidery for select fashion houses on order, bringing the artistry of Lucknow to the global stage quietly and without compromise.\n\nTaropa is for people who choose a garment for what is in it — the hand embroidery, the hours, the fabric — rather than for a label on it. It is for those who carry themselves with quiet confidence and express their identity without needing to announce it. Young or old, any nationality, any body — chikankari has a way of sitting effortlessly on whoever wears it. That is part of its magic.\n\nIf one piece were to represent everything Taropa stands for, it would be a hand-embroidered saree. It can take a minimum of six months to complete — worked on by skilled artisans, stitch by stitch, until the fabric becomes something extraordinary. A Taropa saree is not just a garment. It is something women keep, treasure, and pass down to the next generation — a piece of wearable memory, as timeless as the craft itself.",
+        body: "Every piece is made in Lucknow — the home of chikankari. Our customers span the world, from India to the UK, USA, UAE, Thailand and beyond. We also produce embroidery for select fashion houses on order — quietly, without compromise.\n\nTaropa is for people who choose a garment for the hand embroidery, the hours and the fabric — rather than for a label on it.\n\nIf one piece stood for everything we do, it would be a hand-embroidered saree: six months minimum, kept and passed on.",
       },
     ],
   } satisfies AboutContent,
@@ -227,6 +417,14 @@ export const pages = {
     title: "Contact us",
     intro:
       "For questions about the collection, an order or a collaboration — write to us.",
-    studio: "Paris, France — address to be completed.",
+    studio:
+      "39A, DDA Flats, Ground floor, Shapurjaat, New Delhi — 110049, India",
   },
+} as const;
+
+export const aboutClosing = {
+  quote:
+    "If one piece were to represent everything Taropa stands for, it would be a hand-embroidered saree. It can take a minimum of six months to complete — kept, treasured, and passed down.",
+  href: "/contact",
+  label: "Get in touch",
 } as const;

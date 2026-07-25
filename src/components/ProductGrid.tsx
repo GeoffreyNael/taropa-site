@@ -25,7 +25,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                 src={product.image}
                 alt={product.name}
                 width={800}
-                height={1050}
+                height={1200}
                 sizes="(max-width: 767px) 50vw, 25vw"
                 priority={index < 4}
                 className="product-card__image"

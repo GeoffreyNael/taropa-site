@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { PageHeader } from "@/components/PageHeader";
-import { brand, pages } from "@/lib/brand";
+import Link from "next/link";
+import { aboutClosing, brand, pages } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: `${pages.about.title} — ${brand.name}`,
@@ -14,8 +14,13 @@ export default function AboutPage() {
   const about = pages.about;
 
   return (
-    <main className="content-page about-page">
-      <PageHeader title={about.title} intro={about.intro || undefined} />
+    <main className="about-page">
+      <header className="about-hero">
+        <p className="about-hero__eyebrow">{brand.name}</p>
+        <h1 className="about-hero__title">{about.title}</h1>
+        <p className="about-hero__intro">{about.intro}</p>
+      </header>
+
       <section className="about-page__body">
         {about.sections.map((section, index) => (
           <article
@@ -39,13 +44,25 @@ export default function AboutPage() {
                 .split("\n\n")
                 .filter((paragraph) => paragraph.trim())
                 .map((paragraph) => (
-                  <p key={paragraph.slice(0, 40)} className="about-row__paragraph">
+                  <p
+                    key={paragraph.slice(0, 40)}
+                    className="about-row__paragraph"
+                  >
                     {paragraph.trim()}
                   </p>
                 ))}
             </div>
           </article>
         ))}
+      </section>
+
+      <section className="about-closing">
+        <blockquote className="about-closing__quote">
+          {aboutClosing.quote}
+        </blockquote>
+        <Link className="home-btn home-btn--solid" href={aboutClosing.href}>
+          {aboutClosing.label}
+        </Link>
       </section>
     </main>
   );

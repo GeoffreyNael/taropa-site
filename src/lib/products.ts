@@ -41,6 +41,7 @@ export const womenProducts: Product[] = [
       "Light as moonlight, effortless as a summer breeze. Ayla is a study in quiet sophistication, featuring hand-embroidered chikankari on fluid mul chanderi, paired with softly gathered trousers. Feminine, graceful, and designed for everyday beauty.",
     category: "women",
     href: "/women/ayla",
+    // 01 couverture · 03 dos au milieu · 02 en dernier
     ...productImages("ayla", [1, 3, 2]),
   },
   {
@@ -101,7 +102,8 @@ export const womenProducts: Product[] = [
       "Designed to move as beautifully as you do. A flowing kaftan silhouette adorned with peach-toned hand embroidery captures effortless elegance through fluid drapes, gentle movement, and understated charm.",
     category: "women",
     href: "/women/lila",
-    ...productImages("lila", [1, 2, 3]),
+    // 03 = full look pieds visibles (01 est un plan coupé mi-cuisse)
+    ...productImages("lila", [3, 2, 1]),
   },
   {
     id: "mehr",
