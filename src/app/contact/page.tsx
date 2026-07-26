@@ -9,11 +9,15 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="content-page contact-page">
+    <main className="contact-page">
+      <header className="contact-hero">
+        <p className="contact-hero__brand">{brand.name}</p>
+        <h1 className="contact-hero__title">{pages.contact.title}</h1>
+        <p className="contact-hero__intro">{pages.contact.intro}</p>
+      </header>
+
       <section className="contact-page__body">
         <ContactForm
-          title={pages.contact.title}
-          intro={pages.contact.intro}
           email={brand.email}
           phone={brand.phone}
           instagram={brand.instagram}

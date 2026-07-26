@@ -3,8 +3,6 @@
 import { FormEvent, useState } from "react";
 
 type ContactFormProps = {
-  title: string;
-  intro: string;
   email: string;
   phone: string;
   instagram: string;
@@ -15,8 +13,6 @@ type ContactFormProps = {
 type FormStatus = "idle" | "sent";
 
 export function ContactForm({
-  title,
-  intro,
   email,
   phone,
   instagram,
@@ -44,16 +40,8 @@ export function ContactForm({
   }
 
   return (
-    <div className="contact-panel">
-      <header className="contact-panel__header">
-        <h1 className="contact-panel__title">Get in touch</h1>
-        <p className="contact-panel__intro">
-          Reach us by email, phone, or Instagram — or visit the studio in New
-          Delhi.
-        </p>
-      </header>
-
-      <aside className="contact-aside">
+    <div className="contact-layout">
+      <aside className="contact-aside" aria-label="Contact details">
         <div className="contact-aside__block">
           <p className="contact-aside__label">Email</p>
           <a className="contact-aside__link" href={`mailto:${email}`}>
@@ -87,10 +75,7 @@ export function ContactForm({
       </aside>
 
       <div className="contact-form-block">
-        <header className="contact-form-block__header">
-          <h2 className="contact-form-block__title">{title}</h2>
-          <p className="contact-form-block__intro">{intro}</p>
-        </header>
+        <p className="contact-form-block__eyebrow">Write to us</p>
 
         {status === "sent" ? (
           <div className="contact-form contact-form--sent" role="status">
@@ -142,7 +127,7 @@ export function ContactForm({
               <textarea
                 className="contact-field__input contact-field__input--area"
                 name="message"
-                rows={4}
+                rows={5}
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

@@ -22,41 +22,59 @@ export default function AboutPage() {
       </header>
 
       <div className="about-page__body">
-        {about.sections.map((section, index) => (
-          <article
-            key={section.id}
-            className={`about-row${index % 2 === 1 ? " about-row--reverse" : ""}`}
-          >
-            <figure className="about-row__media">
-              <Image
-                src={section.image}
-                alt={section.imageAlt}
-                width={section.width}
-                height={section.height}
-                sizes="(max-width: 767px) 100vw, 48vw"
-                className="about-row__image"
-                priority={index === 0}
-              />
-            </figure>
-            <div className="about-row__copy">
-              <p className="about-row__index">
-                {String(index + 1).padStart(2, "0")}
-              </p>
-              <h2 className="about-row__heading">{section.heading}</h2>
-              {section.body
-                .split("\n\n")
-                .filter((paragraph) => paragraph.trim())
-                .map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 40)}
-                    className="about-row__paragraph"
-                  >
-                    {paragraph.trim()}
-                  </p>
-                ))}
-            </div>
-          </article>
-        ))}
+        {about.sections.map((section, index) => {
+          const { media } = section;
+          const isWordmark = media.variant === "wordmark";
+          const isWide = !isWordmark && media.width >= media.height;
+
+          return (
+            <article
+              key={section.id}
+              className={`about-row${index % 2 === 1 ? " about-row--reverse" : ""}`}
+            >
+              <figure
+                className={`about-row__media${
+                  isWordmark
+                    ? " about-row__media--wordmark"
+                    : isWide
+                      ? " about-row__media--wide"
+                      : " about-row__media--tall"
+                }`}
+              >
+                <Image
+                  src={media.src}
+                  alt={media.alt}
+                  width={isWordmark ? 470 : media.width}
+                  height={isWordmark ? 134 : media.height}
+                  sizes={
+                    isWordmark
+                      ? "(max-width: 767px) 70vw, 280px"
+                      : "(max-width: 767px) 100vw, 48vw"
+                  }
+                  className="about-row__image"
+                  priority={index === 0}
+                />
+              </figure>
+              <div className="about-row__copy">
+                <p className="about-row__index">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h2 className="about-row__heading">{section.heading}</h2>
+                {section.body
+                  .split("\n\n")
+                  .filter((paragraph) => paragraph.trim())
+                  .map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 40)}
+                      className="about-row__paragraph"
+                    >
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+              </div>
+            </article>
+          );
+        })}
       </div>
 
       <section className="about-closing">

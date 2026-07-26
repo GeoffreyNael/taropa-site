@@ -1,19 +1,3 @@
-export type AboutSection = {
-  id: string;
-  heading: string;
-  body: string;
-  image: string;
-  imageAlt: string;
-  width: number;
-  height: number;
-};
-
-export type AboutContent = {
-  title: string;
-  intro: string;
-  sections: AboutSection[];
-};
-
 export type NavItem = {
   href: string;
   label: string;
@@ -89,6 +73,21 @@ export type HomeStoryMedia = {
   width: number;
   height: number;
   poster?: string;
+  /** Affichage logo / mot-écrit (pas une photo atelier) */
+  variant?: "wordmark";
+};
+
+export type AboutSection = {
+  id: string;
+  heading: string;
+  body: string;
+  media: HomeStoryMedia;
+};
+
+export type AboutContent = {
+  title: string;
+  intro: string;
+  sections: AboutSection[];
 };
 
 export type HomeStoryChapter = {
@@ -377,45 +376,61 @@ export const pages = {
       {
         id: "origin",
         heading: "Why Taropa",
-        image: "/media/images/atelier-group.jpg",
-        imageAlt: "Women artisans embroidering together in the Lucknow workshop",
-        width: 1600,
-        height: 1200,
+        // La grand-mère / to stitch — main clairement âgée au métier
+        media: {
+          type: "image",
+          src: "/media/images/grandmother-hands.jpg",
+          alt: "An elderly artisan’s hands embroidering chikankari on a hoop",
+          width: 1800,
+          height: 1350,
+        },
         body: "The name comes from my grandmother. In Punjabi, Taropa means to stitch — the only word that felt true for this brand.\n\nI settled young in Lucknow and was drawn to its craft. Growing up, I had watched my mother make clothes by hand. When I found chikankari, bringing the two together felt natural.\n\nFrom the start I used silk thread instead of cotton. The rule has stayed simple: no shortcuts, only hand embroidery.\n\nWe work with women artisans in Lucknow so the craft remains a real livelihood. Embroidery traditional, silhouettes classic to contemporary. Chikankari is a dying art. Taropa exists to keep it alive.",
       },
       {
         id: "chikankari",
         heading: "Chikankari",
-        image: "/media/images/embroidery-hands.jpg",
-        imageAlt: "Artisan embroidering chikankari by hand on a frame",
-        width: 1200,
-        height: 1600,
+        // Livre + loupe + rouge — version validée
+        media: {
+          type: "image",
+          src: "/media/images/chikankari-book.jpg",
+          alt: "Chikankari: A Lucknawi Tradition — book with embroidered swatch and magnifying glass",
+          width: 768,
+          height: 1024,
+        },
         body: "It begins with an outline on fabric. Then women artisans in rural Lucknow work in small frames, stitch by stitch — 32 stitches passed down through generations.\n\nWhat still moves me is watching that bare outline become something lasting. That is what chikankari means to me.\n\nI favour pure silk chiffon, and shadow and jali stitches — subtle, but they give real depth. A single piece can take months. It is never machine-made. Taropa is for those who can see the difference.",
       },
       {
         id: "atelier",
         heading: "The workshop & the artisans",
-        image: "/media/images/block-print.jpg",
-        imageAlt: "Hand-carved wooden block for textile printing — Lucknow atelier",
-        width: 720,
-        height: 1280,
+        // Les femmes au travail — atelier-group (home utilise IMG_9672)
+        media: {
+          type: "image",
+          src: "/media/images/atelier-group.jpg",
+          alt: "Women artisans embroidering together in a Lucknow home workshop",
+          width: 1600,
+          height: 1200,
+        },
         body: "Every Taropa piece is made in Lucknow, across multiple small workshops — each one led by a woman artisan who has opened her home to relatives, friends and neighbours. For many of these women, whose families do not permit them to work outside the home, it is the only way they can earn an independent livelihood.\n\nDepending on the work, between 60 and 100 women work with Taropa at any time. Wooden blocks imprint a blue outline — the blueprint. Then embroidery, washing, dyeing, tailoring. The blue disappears; only the handwork remains.\n\nMany of these women have been with me for years. In some workshops I now work with three or four generations of the same family.",
       },
       {
         id: "today",
         heading: "Taropa today",
-        image: "/media/images/blue-blocks.jpg",
-        imageAlt: "Indigo printing blocks in woven baskets — Lucknow craft",
-        width: 1200,
-        height: 1600,
+        // Le résultat précieux — pièce finie, gardée / transmise
+        media: {
+          type: "image",
+          src: "/media/images/IMG_9715.jpg",
+          alt: "Gold and cream chikankari embroidery detail on sheer fabric",
+          width: 1500,
+          height: 2000,
+        },
         body: "Every piece is made in Lucknow — the home of chikankari. Our customers span the world, from India to the UK, USA, UAE, Thailand and beyond. We also produce embroidery for select fashion houses on order — quietly, without compromise.\n\nTaropa is for people who choose a garment for the hand embroidery, the hours and the fabric — rather than for a label on it.\n\nIf one piece stood for everything we do, it would be a hand-embroidered saree: six months minimum, kept and passed on.",
       },
     ],
   } satisfies AboutContent,
   contact: {
-    title: "Contact us",
+    title: "Contact",
     intro:
-      "For questions about the collection, an order or a collaboration — write to us.",
+      "For questions about the collection, an order, or a collaboration.",
     studio:
       "39A, DDA Flats, Ground floor, Shapurjaat, New Delhi — 110049, India",
   },
