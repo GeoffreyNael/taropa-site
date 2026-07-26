@@ -22,6 +22,30 @@ export function SiteNav() {
 
   return (
     <div className="site-nav">
+      <nav className="site-nav__desktop" aria-label="Main navigation">
+        <ul className="site-nav__desktop-list">
+          {nav.map((item) => {
+            const isActive =
+              pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={
+                    isActive
+                      ? "site-nav__desktop-link site-nav__desktop-link--active"
+                      : "site-nav__desktop-link"
+                  }
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
       <button
         type="button"
         className="site-nav__toggle"
@@ -46,7 +70,9 @@ export function SiteNav() {
 
       <div
         className={
-          open ? "site-nav__backdrop site-nav__backdrop--visible" : "site-nav__backdrop"
+          open
+            ? "site-nav__backdrop site-nav__backdrop--visible"
+            : "site-nav__backdrop"
         }
         onClick={() => setOpen(false)}
         aria-hidden="true"
@@ -54,10 +80,13 @@ export function SiteNav() {
 
       <nav
         id="site-nav-panel"
-        className={open ? "site-nav__panel site-nav__panel--open" : "site-nav__panel"}
-        aria-label="Main navigation"
+        className={
+          open ? "site-nav__panel site-nav__panel--open" : "site-nav__panel"
+        }
+        aria-label="Mobile navigation"
         aria-hidden={!open}
       >
+        <p className="site-nav__panel-eyebrow">Taropa</p>
         <ul className="site-nav__list">
           {nav.map((item) => {
             const isActive =
@@ -80,6 +109,7 @@ export function SiteNav() {
             );
           })}
         </ul>
+        <p className="site-nav__panel-note">Made by hand, in India</p>
       </nav>
     </div>
   );

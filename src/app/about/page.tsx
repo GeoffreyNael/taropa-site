@@ -21,7 +21,7 @@ export default function AboutPage() {
         <p className="about-hero__intro">{about.intro}</p>
       </header>
 
-      <section className="about-page__body">
+      <div className="about-page__body">
         {about.sections.map((section, index) => (
           <article
             key={section.id}
@@ -33,12 +33,15 @@ export default function AboutPage() {
                 alt={section.imageAlt}
                 width={section.width}
                 height={section.height}
-                sizes="(max-width: 767px) 100vw, 50vw"
+                sizes="(max-width: 767px) 100vw, 48vw"
                 className="about-row__image"
                 priority={index === 0}
               />
             </figure>
             <div className="about-row__copy">
+              <p className="about-row__index">
+                {String(index + 1).padStart(2, "0")}
+              </p>
               <h2 className="about-row__heading">{section.heading}</h2>
               {section.body
                 .split("\n\n")
@@ -54,13 +57,13 @@ export default function AboutPage() {
             </div>
           </article>
         ))}
-      </section>
+      </div>
 
       <section className="about-closing">
         <blockquote className="about-closing__quote">
           {aboutClosing.quote}
         </blockquote>
-        <Link className="home-btn home-btn--solid" href={aboutClosing.href}>
+        <Link className="about-closing__link" href={aboutClosing.href}>
           {aboutClosing.label}
         </Link>
       </section>

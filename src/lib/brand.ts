@@ -344,12 +344,11 @@ export const homeContent = {
   },
   collection: {
     title: "The collection",
-    intro:
-      "Hand-embroidered pret — ivory, blush, sage, and lime. Contemporary silhouettes, traditional craft.",
+    intro: "To be discovered.",
     womenHref: "/women",
     menHref: "/men",
-    womenLabel: "View women",
-    menLabel: "View men",
+    womenLabel: "Women",
+    menLabel: "Men",
   },
   contactCta: {
     title: "Write to us",

@@ -5,40 +5,48 @@ type CollectionHeaderProps = {
   title: string;
   categories: CollectionCategory[];
   activeSlug?: string;
+  intro?: string;
 };
 
 export function CollectionHeader({
   title,
   categories,
   activeSlug = "all",
+  intro,
 }: CollectionHeaderProps) {
+  const showCategories =
+    categories.length > 1 ||
+    (categories.length === 1 && categories[0].slug !== "all");
+
   return (
     <header className="collection-header">
-      <div className="collection-header__top">
-        <h1 className="collection-header__title">Collection : {title}</h1>
-        <button type="button" className="collection-header__filters" disabled>
-          Filters
-        </button>
+      <div className="collection-header__inner">
+        <h1 className="collection-header__title">{title}</h1>
+        {intro ? <p className="collection-header__intro">{intro}</p> : null}
+        {showCategories ? (
+          <nav className="collection-header__nav" aria-label="Categories">
+            <ul className="collection-header__nav-list">
+              {categories.map((category) => (
+                <li key={category.slug}>
+                  <Link
+                    href={category.href}
+                    className={
+                      category.slug === activeSlug
+                        ? "collection-header__nav-link collection-header__nav-link--active"
+                        : "collection-header__nav-link"
+                    }
+                    aria-current={
+                      category.slug === activeSlug ? "page" : undefined
+                    }
+                  >
+                    {category.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
       </div>
-      <nav className="collection-header__nav" aria-label="Categories">
-        <ul className="collection-header__nav-list">
-          {categories.map((category) => (
-            <li key={category.slug}>
-              <Link
-                href={category.href}
-                className={
-                  category.slug === activeSlug
-                    ? "collection-header__nav-link collection-header__nav-link--active"
-                    : "collection-header__nav-link"
-                }
-                aria-current={category.slug === activeSlug ? "page" : undefined}
-              >
-                {category.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </header>
   );
 }

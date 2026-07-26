@@ -11,7 +11,10 @@ export const metadata: Metadata = {
 export default function WomenPage() {
   return (
     <main className="collection-page">
-      <CollectionHeader title={pages.women.title} categories={womenCategories} />
+      <CollectionHeader
+        title={pages.women.title}
+        categories={womenCategories}
+      />
       <section className="collection-page__grid">
         <ProductGrid products={womenProducts} />
       </section>

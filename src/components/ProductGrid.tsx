@@ -35,15 +35,6 @@ export function ProductGrid({ products }: ProductGridProps) {
               <h2 className="product-card__title">{product.name}</h2>
               {product.price ? (
                 <p className="product-card__price">{product.price}</p>
-              ) : (
-                <p className="product-card__price product-card__price--empty">
-                  Price TBC
-                </p>
-              )}
-              {product.colorCount ? (
-                <p className="product-card__colors">
-                  {product.colorCount} color{product.colorCount > 1 ? "s" : ""}
-                </p>
               ) : null}
             </div>
           </Link>

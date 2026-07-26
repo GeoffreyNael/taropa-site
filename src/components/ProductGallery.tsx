@@ -153,9 +153,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   alt={`${productName} — look ${index + 1}`}
                   width={1023}
                   height={1537}
-                  sizes="100vw"
+                  sizes="(max-width: 767px) 92vw, min(92vw, 900px)"
                   className="product-lightbox__image"
                   priority={index === openIndex}
+                  quality={90}
                 />
               </div>
             ))}

@@ -20,6 +20,10 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: `${brand.name} — ${brand.tagline}`,
   description: brand.description,
+  icons: {
+    icon: [{ url: "/icon-taropa.png", type: "image/png" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png" }],
+  },
   openGraph: {
     title: brand.name,
     description: brand.description,
