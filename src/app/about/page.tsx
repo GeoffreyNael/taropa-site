@@ -24,8 +24,7 @@ export default function AboutPage() {
       <div className="about-page__body">
         {about.sections.map((section, index) => {
           const { media } = section;
-          const isWordmark = media.variant === "wordmark";
-          const isWide = !isWordmark && media.width >= media.height;
+          const isWide = media.width >= media.height;
 
           return (
             <article
@@ -34,23 +33,15 @@ export default function AboutPage() {
             >
               <figure
                 className={`about-row__media${
-                  isWordmark
-                    ? " about-row__media--wordmark"
-                    : isWide
-                      ? " about-row__media--wide"
-                      : " about-row__media--tall"
+                  isWide ? " about-row__media--wide" : " about-row__media--tall"
                 }`}
               >
                 <Image
                   src={media.src}
                   alt={media.alt}
-                  width={isWordmark ? 470 : media.width}
-                  height={isWordmark ? 134 : media.height}
-                  sizes={
-                    isWordmark
-                      ? "(max-width: 767px) 70vw, 280px"
-                      : "(max-width: 767px) 100vw, 48vw"
-                  }
+                  width={media.width}
+                  height={media.height}
+                  sizes="(max-width: 767px) 100vw, 48vw"
                   className="about-row__image"
                   priority={index === 0}
                 />
