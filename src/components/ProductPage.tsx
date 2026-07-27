@@ -25,11 +25,7 @@ export function ProductPage({ product, backHref, backLabel }: ProductPageProps) 
 
           {product.price ? (
             <p className="product-page__price">{product.price}</p>
-          ) : (
-            <p className="product-page__price product-page__price--empty">
-              Price TBC
-            </p>
-          )}
+          ) : null}
 
           {product.description.trim() ? (
             <p className="product-page__description">{product.description}</p>

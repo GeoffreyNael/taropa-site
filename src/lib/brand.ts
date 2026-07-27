@@ -272,7 +272,7 @@ export const homeContent = {
     {
       id: "women",
       eyebrow: "The women",
-      title: "Workshops led by women",
+      title: "Led by women",
       paragraphs: [
         "Every piece is made in Lucknow, across small home workshops — each led by a woman who has opened her home to relatives, friends and neighbours. For many, whose families do not permit them to work outside the home, it is the only way to earn an independent livelihood.",
         "Depending on the work, between 60 and 100 women work with Taropa at any time. In some workshops, three or four generations of the same family work with us.",
@@ -305,7 +305,7 @@ export const homeContent = {
     {
       id: "blueprint",
       eyebrow: "The blueprint",
-      title: "No shortcuts",
+      title: "Handmade embroidery",
       paragraphs: [
         "Wooden blocks imprint a blue outline — the map of the piece. Then embroidery, washing, dyeing, tailoring.",
         "The blue disappears. Only the handwork remains. From the start: silk thread, never cotton. Never machine-made.",
@@ -321,7 +321,7 @@ export const homeContent = {
     {
       id: "time",
       eyebrow: "Time",
-      title: "Months in a garment",
+      title: "A forever heirloom",
       paragraphs: [
         "A single piece can take months. A hand-embroidered saree: six months minimum — kept and passed on.",
         "Fabric washes in the sun. The hours stay in the cloth.",

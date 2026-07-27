@@ -620,11 +620,6 @@ a {
   font-size: 1.05rem;
 }
 
-.product-page__price--empty {
-  color: var(--color-muted);
-  font-size: 0.95rem;
-}
-
 .product-page__description {
   margin: 1.25rem 0 0;
   font-size: 1.05rem;
